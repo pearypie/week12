@@ -203,7 +203,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 });
               },
               leading: Icon(
-                Icons.shopping_cart,
+                Icons.logout,
                 color: Colors.black,
               ),
             ),

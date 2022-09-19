@@ -1,9 +1,11 @@
+import 'package:finalboss/login_page/login_page.dart';
 import 'package:finalboss/page1/page1.dart';
 import 'package:finalboss/page2/imports.dart';
 import 'package:finalboss/page2/main.dart';
 import 'package:finalboss/page2/provider/calculator_provider.dart';
 import 'package:finalboss/page3/food.dart';
 import 'package:finalboss/page4/screens/product/products_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 
@@ -108,6 +110,29 @@ class Calculator extends StatelessWidget {
               },
               leading: Icon(
                 Icons.shopping_cart,
+                color: Colors.black,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Divider(
+                color: Colors.black,
+              ),
+            ),
+            ListTile(
+              title: const Text(
+                'ล็อคเอ้า',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+              onTap: () {
+                FirebaseAuth.instance.signOut().then((value) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }));
+                });
+              },
+              leading: Icon(
+                Icons.logout,
                 color: Colors.black,
               ),
             ),

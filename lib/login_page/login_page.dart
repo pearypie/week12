@@ -6,6 +6,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'registration_page.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key key}) : super(key: key);
@@ -168,7 +169,41 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Future singIn(useremail, userpassword) async {
-    await FirebaseAuth.instance
-        .signInWithEmailAndPassword(email: useremail, password: userpassword);
+    try {
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(email: useremail, password: userpassword);
+    } on FirebaseAuthException catch (e) {
+      print(e);
+      if (e.toString() ==
+          '[firebase_auth/user-not-found] There is no user record corresponding to this identifier. The user may have been deleted.') {
+        Fluttertoast.showToast(
+            msg: 'ไม่มีผู้นี้ใช้ในระบบ',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Color.fromARGB(255, 255, 0, 0),
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else if (e.toString() ==
+          '[firebase_auth/unknown] Given String is empty or null') {
+        Fluttertoast.showToast(
+            msg: 'ไม่มีข้อมูลให้รับ',
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Color.fromARGB(255, 255, 0, 0),
+            textColor: Colors.white,
+            fontSize: 16.0);
+      } else {
+        Fluttertoast.showToast(
+            msg: e.toString(),
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.BOTTOM,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Color.fromARGB(255, 255, 0, 0),
+            textColor: Colors.white,
+            fontSize: 16.0);
+      }
+    }
   }
 }

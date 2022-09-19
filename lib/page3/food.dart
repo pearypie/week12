@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:finalboss/login_page/login_page.dart';
 import 'package:finalboss/page1/page1.dart';
 import 'package:finalboss/page2/main.dart';
 import 'package:finalboss/page4/bottom.dart';
 import 'package:finalboss/page4/screens/product/products_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
@@ -232,6 +234,29 @@ class _MenuState extends State<Menu> {
               },
               leading: Icon(
                 Icons.shopping_cart,
+                color: Colors.black,
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Divider(
+                color: Colors.black,
+              ),
+            ),
+            ListTile(
+              title: const Text(
+                'ล็อคเอ้า',
+                style: TextStyle(color: Colors.black, fontSize: 20),
+              ),
+              onTap: () {
+                FirebaseAuth.instance.signOut().then((value) {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return LoginPage();
+                  }));
+                });
+              },
+              leading: Icon(
+                Icons.logout,
                 color: Colors.black,
               ),
             ),
